@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 let transporter = nodemailer.createTransport({
   // host: "smtp.ethereal.email", // 发送方邮箱主机 node_modules/lib/wellknow/services.json 查找
   host: "smtp.qq.com",
-  service: 'qq',
+  service: "qq",
   port: 465,
   secure: true, // true for 465, false for other ports
   auth: {
@@ -25,9 +25,9 @@ function sendToMail(mail, code) {
   return new Promise((resolve, reject) => {
     transporter.sendMail(mailObj, (error, data) => {
       if (error) {
-        reject(error);
+        reject();
       } else {
-        console.log(mailObj);
+        // console.log(mailObj);
         resolve();
       }
     });
