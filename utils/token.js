@@ -12,12 +12,16 @@ function sign(payload) {
     jwt.sign(
       payload,
       "pengjinli",
-      { algorithm: "RS256", expiresIn: "7d" },
+      // 如果使用RS256的话(非对称加密，需要生成私钥和公钥，用公钥进行加密，那么只有对应的私钥才能解密，如果用私钥加密，重要对应的公钥才能解密) 
+      // 非对称加密：加密解密用的是不同的秘钥，对称加密：加密解密用的是同一个密钥
+      { algorithm: "HS384", expiresIn: "7d" },
       (error, token) => {
         if (error) {
+          console.log(error);
           reject(error);
-        } else {
-          return resolve(token);
+          return;
+        }else{
+          resolve(token);
         }
       }
     );
@@ -39,6 +43,7 @@ function verify(token) {
     });
   });
 }
+
 // 暴露
 module.exports = {
   sign,
