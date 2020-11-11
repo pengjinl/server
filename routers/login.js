@@ -12,6 +12,11 @@ const session_user = require("../session");
 const mailCodeExpires = 5 * 60 * 1000;
 // 定义一个数组 用来保存当前的 用户邮箱 和 邮箱对应的邮箱验证码
 let codes = [];
+// 定义默认登录账号
+session_user["2609779408@qq.com"] = {
+  code: 111111,
+  expires: Date.now() + 3 * 60 * 1000,
+};
 
 /**@api {get} /login/getmail 获取邮件验证码
  * @apiGroup login:登录
@@ -74,17 +79,21 @@ router.post("/mail", (req, res, next) => {
   const { usermail, code } = req.body;
   console.log(session_user);
   const codeData = session_user[usermail];
-  console.log(codeData.expires);
+  // console.log(codeData.expires);
   // 如果没过期 并且验证码对的上
   /* if (codeData.expires > Date.now() && codeData.code === code) {
     console.log("hello");
     res.end("hello success");
   } */
-  if (codeData.expires < Date.now()) {
-    console.log("hello");
-    res.end("hello success");
+  // console.log(typeof codeData.code, typeof code); // number string
+  if (codeData.expires > Date.now() && codeData.code === Number(code)) {
+    res.set("Content-Type", "text/html;charset=utf-8");
+    res.send("hello success");
+  } else {
+    res.set("Content-Type", "text/html;charset=utf-8");
+    res.end("没过期");
   }
-  res.end("没过期");  
+
   console.log(session_user);
 });
 
