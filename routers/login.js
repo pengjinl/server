@@ -2,7 +2,6 @@
  * @description 路由中间件 封装登录路由
  */
 const express = require("express");
-const axios = require("axios");
 // 引入发送邮件验证码的模块
 const Mail = require("../utils/sendMail");
 const router = express.Router();
@@ -24,12 +23,12 @@ session_user["2609779408@qq.com"] = {
  * @description 获取邮件验证码
  * @apiVersion 1.0.0
  * @apiSampleRequest http://localhost:4000/login/getmail
- * @apiParam {number} mail 邮箱
+ * @apiParam {number} usermail 邮箱
  * @apiParam {string} code 邮箱验证码
  * @apiSuccessExample {json} Response 200 Example
  *   HTTP/1.1 200 OK
  *   {
- *     "code": 200,
+ *     "code": 20000,
  *     "data": "",
  *      "msg":'邮件验证码发送成功'
  *   }
@@ -64,12 +63,12 @@ router.post("/getmail", (req, res, next) => {
  * @description 使用邮箱验证码验证
  * @apiVersion 1.0.0
  * @apiSampleRequest http://localhost:4000/login/mail
- * @apiParam {number} mail 邮箱
+ * @apiParam {number} usermail 邮箱
  * @apiParam {string} code 邮箱验证码
  * @apiSuccessExample {json} Response 200 Example
  *   HTTP/1.1 200 OK
  *   {
- *     "code": 200,
+ *     "code": 20000,
  *     "data": ""
  *   }
  */
@@ -90,10 +89,10 @@ router.post("/mail", (req, res, next) => {
   // console.log(typeof codeData.code, typeof code); // number string
   if (codeData.expires > Date.now() && codeData.code === Number(code)) {
     res.set("Content-Type", "text/html;charset=utf-8");
-    res.send("hello success");
+    res.send({ code: 20000, data: {}, msg: "success" });
   } else {
     res.set("Content-Type", "text/html;charset=utf-8");
-    res.end("没过期");
+    res.end({ code: 20002, data: {}, msg: "登录失败" });
   }
 
   console.log(session_user);
