@@ -5,7 +5,13 @@ const MONGODB_CONFIG = {
   port: 27017,
   database: "DATABASE_0806",
 };
-
+// 服务器配置
+const SERVER_CONFIG = {
+  host: "192.168.16.22",
+  // host: "localhost",
+  port: 4000,
+};
 module.exports = {
   MONGODB_CONFIG,
+  SERVER_CONFIG,
 };

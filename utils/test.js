@@ -4,7 +4,7 @@ const jwt = require("./token");
 let obj = {
   id: 22,
 };
-let result = jwt
+jwt
   .sign(obj)
   .then((data) => {
     console.log(data);
@@ -12,5 +12,3 @@ let result = jwt
   .catch((error) => {
     console.log(error);
   });
-
-console.log(result);

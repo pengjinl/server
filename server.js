@@ -1,6 +1,7 @@
 const express = require("express");
 const { resolve } = require("path");
 const multiparty = require("connect-multiparty");
+const {SERVER_CONFIG} = require("./config")
 // 加载解析body的插件
 const bodyparser = require("body-parser");
 const app = express();
@@ -17,7 +18,7 @@ require("./db/connect");
 const loginRouter = require("./routers/login");
 // 使用登录路由中间件
 app.use("/login", loginRouter);
-app.listen(4000, (err) => {
+app.listen(SERVER_CONFIG.port,SERVER_CONFIG.host, (err) => {
   if (err) {
     console.log(err);
   } else {

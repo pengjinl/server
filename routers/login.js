@@ -77,6 +77,8 @@ router.post("/getmail", (req, res, next) => {
 router.post("/mail", (req, res, next) => {
   // 获取登录的邮箱 及 验证码
   const { usermail, code } = req.body;
+  console.log(usermail, code);
+  console.log(typeof usermail, typeof code);
   console.log(session_user);
   const codeData = session_user[usermail];
   // console.log(codeData.expires);
