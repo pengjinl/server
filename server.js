@@ -18,9 +18,14 @@ require("./db/connect");
 const loginRouter = require("./routers/login");
 // 注册路由中间件
 const registerRouter = require("./routers/register");
+// 首页路由中间件
+const homeRouter = require("./routers/Home");
 // 使用登录路由中间件
 app.use("/login", loginRouter);
+// 注册
 app.use("/register", registerRouter);
+// 首页接口所需数据
+app.use("/home", homeRouter);
 app.listen(SERVER_CONFIG.port, SERVER_CONFIG.host, (err) => {
   if (err) {
     console.log(err);

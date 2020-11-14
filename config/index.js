@@ -7,7 +7,7 @@ const MONGODB_CONFIG = {
 };
 // 服务器配置
 const SERVER_CONFIG = {
-  host: "192.168.16.22",
+  host: "192.168.16.28",
   // host: "localhost",
   port: 4000,
 };

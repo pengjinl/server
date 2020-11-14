@@ -43,7 +43,6 @@ const userSchema = new mongoose.Schema({
   },
   token: {
     type: String,
-    
   },
 });
 // 转化成数据模型

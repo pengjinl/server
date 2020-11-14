@@ -18,7 +18,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "number",
             "optional": false,
-            "field": "mail",
+            "field": "usermail",
             "description": "<p>邮箱</p>"
           },
           {
@@ -35,7 +35,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 200 Example",
-          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 200,\n  \"data\": \"\",\n   \"msg\":'邮件验证码发送成功'\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 20000,\n  \"data\": \"\",\n   \"msg\":'邮件验证码发送成功'\n}",
           "type": "json"
         }
       ]
@@ -62,7 +62,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "number",
             "optional": false,
-            "field": "mail",
+            "field": "usermail",
             "description": "<p>邮箱</p>"
           },
           {
@@ -79,12 +79,56 @@ define({ "api": [
       "examples": [
         {
           "title": "Response 200 Example",
-          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 200,\n  \"data\": \"\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 20000,\n  \"data\": \"\"\n}",
           "type": "json"
         }
       ]
     },
     "filename": "routers/login.js",
     "groupTitle": "login:登录"
+  },
+  {
+    "type": "get",
+    "url": "/register/mail",
+    "title": "邮箱注册",
+    "group": "register:注册",
+    "name": "邮箱注册",
+    "version": "1.0.0",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:4000/register/mail"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "mail",
+            "description": "<p>邮箱</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "password",
+            "description": "<p>密码</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200 Example",
+          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 20000,\n  \"data\": \"\",\n   \"msg\":'注册成功'\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routers/register.js",
+    "groupTitle": "register:注册"
   }
 ] });
