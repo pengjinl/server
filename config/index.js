@@ -7,8 +7,8 @@ const MONGODB_CONFIG = {
 };
 // 服务器配置
 const SERVER_CONFIG = {
-  host: "192.168.16.28",
-  // host: "localhost",
+  // host: "192.168.16.28",
+  host: "localhost",
   port: 4000,
 };
 module.exports = {
