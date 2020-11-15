@@ -19,12 +19,16 @@ const GoodslistModel = new mongoose.Schema({
     // 价格
     type: Number,
   },
-  totalAssess: { 
+  totalAssess: {
     // 总评价数
     type: Number,
   },
+  /* details: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "details",
+  }, */
 });
 
-const goodslists = mongoose.model('goodslists',GoodslistModel)
+const goodslists = mongoose.model("goodslists", GoodslistModel);
 
-module.exports = goodslists
+module.exports = goodslists;

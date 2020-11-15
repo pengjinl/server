@@ -21,9 +21,11 @@ const registerRouter = require("./routers/register");
 // 首页路由中间件
 const homeRouter = require("./routers/Home");
 // 新闻页路由
-const newsRouter = require("./routers/News")
+const newsRouter = require("./routers/News");
 // 店铺首页路由
-const shophomeRouter = require("./routers/Shophome")
+const shophomeRouter = require("./routers/Shophome");
+// 商品详情页路由
+const goodsdetailRouter = require("./routers/Details");
 // 使用登录路由中间件
 app.use("/login", loginRouter);
 // 注册
@@ -31,9 +33,11 @@ app.use("/register", registerRouter);
 // 首页接口所需数据
 app.use("/home", homeRouter);
 // 新闻页所需数据
-app.use("/news",newsRouter)
+app.use("/news", newsRouter);
 // 使用店铺首页路由中间件 获取商品列表
-app.use("/shophome",shophomeRouter)
+app.use("/shophome", shophomeRouter);
+// 使用商品详情路由
+app.use("/detail", goodsdetailRouter);
 // 开启服务器
 app.listen(SERVER_CONFIG.port, SERVER_CONFIG.host, (err) => {
   if (err) {

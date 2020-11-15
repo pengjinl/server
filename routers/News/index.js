@@ -9,7 +9,7 @@ const newsModel = require("../../db/model/News/index.js");
  * @apiName 获取新闻列表数据
  * @description 获取新闻列表数据
  * @apiVersion 1.0.0
- * @apiSampleRequest http://localhost:4000//news/getnewslist
+ * @apiSampleRequest http://localhost:4000/news/getnewslist
  * @apiParam {string} page 页码
  * @apiParam {string} pageSize 每页条数
  * @apiSuccessExample {json} Response 200 Example
