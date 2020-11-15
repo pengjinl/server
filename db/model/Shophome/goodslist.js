@@ -23,10 +23,12 @@ const GoodslistModel = new mongoose.Schema({
     // 总评价数
     type: Number,
   },
-  /* details: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "details",
-  }, */
+  /* details: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "details",
+    },
+  ], */
 });
 
 const goodslists = mongoose.model("goodslists", GoodslistModel);

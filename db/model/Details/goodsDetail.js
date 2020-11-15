@@ -29,10 +29,14 @@ const GoodsDetailModel = new mongoose.Schema({
     // 差评
     type: Array,
   },
- /*  goodslists:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"goodslists"
-  } */
+  goodsid: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "goodslists",
+      // 当前这个表的goodsid 字段   对应   goodslists这个表的_id  才能进行连接
+      // 也就是说数据库中的details 这个表中的goodsid  要对应goodslists的_id
+    },
+  ],
 });
 
 // 新建数据模型

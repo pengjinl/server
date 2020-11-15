@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const goodsDetailModel = require("../../db/model/Details/goodsDetail");
+const Goodslist = require("../../db/model/Shophome/goodslist");
 /**@api {get} /detail/goodsdetail 获取商品详情
  * @apiGroup detail:商品详情
  * @apiName  获取商品详情数据
@@ -15,15 +16,18 @@ router.get("/goodsdetail", async (req, res) => {
   let { skuid } = req.query;
   console.log(skuid, typeof skuid);
   // 多表查询 mongoose的聚合操作 像sql join一样
-  
-  goodsDetailModel
-    .find({ skuid: skuid })
-    .then((data) => {
-      res.send({ code: 20000, data: { goodsInfo: data } });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  // 将gooslaists表中的title price total一起返回
+  // 对应的schema中要配对好  看goodsDetails 模块
+  try {
+    let result = await goodsDetailModel
+      .find({ skuid: skuid })
+      .populate("goodsid", "title price totalAssess") // 过滤出想要的字段，也可以使用对象的形式 0代表不要 1 代表要
+      .exec((error, result) => {
+        res.send({ code: 20000, data: { goodsInfo: result } });
+      });
+  } catch (error) {
+    console.log(error);
+  }
   /* console.log(result);
   res.send({ code: 20000, data: { goodsInfo: result } }); */
 });
