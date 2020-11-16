@@ -33,7 +33,7 @@ router.get("/cartlist", async (req, res) => {
  */
 router.post("/addtocart", async (req, res) => {
   try {
-    const { skuid, skunum } = req.body;
+    let { skuid, skunum } = req.body;
     console.log(skuid, skunum);
     let result = await cartlistModel.update(
       { skuid: Number(skuid) },
@@ -82,9 +82,19 @@ router.delete("/deletecart", async (req, res) => {
  * @apiParam {string} ischecked 选中状态 1代表选中 0代表不选
  * @apiSampleRequest http://localhost:4000/cart/deletecart
  */
-router.get("/checkcart", (req, res) => {
-  const {skuid,ischecked} = req.query
-  // cartlistModel.update()
+router.get("/checkcart", async (req, res) => {
+  try {
+    console.log(req.query);
+    const { skuid, ischecked } = req.query;
+    await cartlistModel.update(
+      { skuid: Number(skuid) },
+      { ischecked: Number(ischecked) }
+    );
+    res.send({ code: 20000, msg: "success" });
+  } catch (error) {
+    console.log(error);
+    res.send({ code: 20001, msg: "切换失败" });
+  }
 });
 
 module.exports = router;
