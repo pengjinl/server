@@ -26,6 +26,8 @@ const newsRouter = require("./routers/News");
 const shophomeRouter = require("./routers/Shophome");
 // 商品详情页路由
 const goodsdetailRouter = require("./routers/Details");
+// 购物列表
+const cartlistRouter = require("./routers/cart");
 // 使用登录路由中间件
 app.use("/login", loginRouter);
 // 注册
@@ -38,6 +40,8 @@ app.use("/news", newsRouter);
 app.use("/shophome", shophomeRouter);
 // 使用商品详情路由
 app.use("/detail", goodsdetailRouter);
+// 购物车列表
+app.use("/cart", cartlistRouter);
 // 开启服务器
 app.listen(SERVER_CONFIG.port, SERVER_CONFIG.host, (err) => {
   if (err) {

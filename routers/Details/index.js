@@ -28,7 +28,5 @@ router.get("/goodsdetail", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  /* console.log(result);
-  res.send({ code: 20000, data: { goodsInfo: result } }); */
 });
 module.exports = router;
