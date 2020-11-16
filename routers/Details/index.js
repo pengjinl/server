@@ -14,7 +14,6 @@ const Goodslist = require("../../db/model/Shophome/goodslist");
  */
 router.get("/goodsdetail", async (req, res) => {
   let { skuid } = req.query;
-  console.log(skuid, typeof skuid);
   // 多表查询 mongoose的聚合操作 像sql join一样
   // 将gooslaists表中的title price total一起返回
   // 对应的schema中要配对好  看goodsDetails 模块

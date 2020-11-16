@@ -1,7 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
-const Goodslist = require('../../db/model/Shophome/goodslist')
+const Goodslist = require("../../db/model/Shophome/goodslist");
 /**@api {get} /shophome/goodslist 获取商品列表
  * @apiGroup shophome:店铺首页
  * @apiName  获取商品列表数据
@@ -10,8 +10,12 @@ const Goodslist = require('../../db/model/Shophome/goodslist')
  * @apiSampleRequest http://localhost:4000/shophome/goodslist
  */
 router.get("/goodslist", async (req, res) => {
-  const result = await Goodslist.find({})
-  res.send({ code: 20000, data: {goodslist:result}, msg: "success" });
+  try {
+    const result = await Goodslist.find({});
+    res.send({ code: 20000, data: { goodslist: result }, msg: "success" });
+  } catch (error) {
+    res.end({ code: 20001, msg: error });
+  }
 });
 
 module.exports = router;

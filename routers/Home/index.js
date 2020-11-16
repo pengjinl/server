@@ -25,7 +25,7 @@ const Homenews = require("../../db/model/Home/homenews");
 router.get("/banners", async (req, res, next) => {
   // 经过mongoose 返回的是一个promise
   const result = await Banners.find({});
-  console.log(Banners);
+  // console.log(Banners);
   // 返回数据
   res.send({ code: 20000, data: result, msg: "success" });
 });

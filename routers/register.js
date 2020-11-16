@@ -8,13 +8,13 @@ const Users = require("../db/model/usersModel");
 const md5 = require("../utils/md5");
 // 引入moment
 const moment = require("../utils/moment");
-/**@api {get} /register/mail 邮箱注册
+/**@api {post} /register/mail 邮箱注册
  * @apiGroup register:注册
  * @apiName 邮箱注册
  * @description 通过邮件注册账号
  * @apiVersion 1.0.0
  * @apiSampleRequest http://localhost:4000/register/mail
- * @apiParam {string} mail 邮箱
+ * @apiParam {string} usermail 邮箱
  * @apiParam {string} password 密码
  * @apiSuccessExample {json} Response 200 Example
  *   HTTP/1.1 200 OK
@@ -27,7 +27,9 @@ const moment = require("../utils/moment");
 router.post("/mail", async (req, res) => {
   try {
     const { usermail, password } = req.body;
-    console.log(usermail, password);
+    // console.log(usermail, password);
+    // console.log(typeof password);
+    // console.log(usermail);
     console.log(md5(password));
     // token
     const token = await sign({ usermail });
@@ -38,6 +40,7 @@ router.post("/mail", async (req, res) => {
       usermail,
       password: md5(password), // 加密密码
       token,
+
       registerTime,
     });
     // console.log(user);
