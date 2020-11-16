@@ -111,14 +111,12 @@ router.post("/mail", (req, res, next) => {
  */
 router.post("/account", (req, res) => {
   const { usermail, password } = req.body;
-  console.log(usermail, password);
   if (!usermail || !password) {
     return res.send({ code: 20001, msg: "密码或者账号错误" });
   }
   // 因为此时数据库中的password  是经过md5加密的  同一个字符串只能加密成一样的
   // 所以对比数据加密后的一致性 就能实现登录
-  let md5password = md5(password);
-  Users.find({ usermail: usermail, password: md5password })
+  Users.find({ usermail: usermail, password: md5(password) })
     .then((data) => {
       // 如果查到的数据长度大于0 那么说明该数据库中有数据
       if (data.length > 0) {
