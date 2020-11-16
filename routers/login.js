@@ -16,7 +16,9 @@ session_user["2609779408@qq.com"] = {
   code: 111111,
   expires: Date.now() + 3 * 60 * 1000,
 };
-
+const Users = require("../db/model/usersModel");
+// 对比加密后的一致性
+const md5 = require("../utils/md5");
 /**@api {get} /login/getmail 获取邮件验证码
  * @apiGroup login:登录
  * @apiName 获取邮件验证码
@@ -72,21 +74,17 @@ router.post("/getmail", (req, res, next) => {
  *     "data": ""
  *   }
  */
-// 邮箱登录
+// 邮箱登录验证码登录
 router.post("/mail", (req, res, next) => {
   // 获取登录的邮箱 及 验证码
   const { usermail, code } = req.body;
-  console.log(usermail, code);
-  console.log(typeof usermail, typeof code);
+  /* console.log(usermail, code);
+  console.log(typeof usermail, typeof code); */
   console.log(session_user);
   const codeData = session_user[usermail];
   // console.log(codeData.expires);
   // 如果没过期 并且验证码对的上
-  /* if (codeData.expires > Date.now() && codeData.code === code) {
-    console.log("hello");
-    res.end("hello success");
-  } */
-  // console.log(typeof codeData.code, typeof code); // number string
+
   if (codeData.expires > Date.now() && codeData.code === Number(code)) {
     res.set("Content-Type", "text/html;charset=utf-8");
     res.send({ code: 20000, data: {}, msg: "success" });
@@ -94,8 +92,43 @@ router.post("/mail", (req, res, next) => {
     res.set("Content-Type", "text/html;charset=utf-8");
     res.end({ code: 20002, data: {}, msg: "登录失败" });
   }
-
-  console.log(session_user);
 });
-
+/**
+ * @api {post} /login/account 账户登录
+ * @apiGroup login:登录
+ * @apiName 邮箱账户与密码登录
+ * @description 使用邮箱账户与密码登录（注册过才能登录）
+ * @apiVersion 1.0.0
+ * @apiSampleRequest http://localhost:4000/login/account
+ * @apiParam {number} usermail 邮箱
+ * @apiParam {password} password 密码
+ * @apiSuccessExample {json} Response 200 Example
+ *   HTTP/1.1 200 OK
+ *   {
+ *     "code": 20000,
+ *     "data": ""
+ *   }
+ */
+router.post("/account", (req, res) => {
+  const { usermail, password } = req.body;
+  console.log(usermail, password);
+  if (!usermail || !password) {
+    return res.send({ code: 20001, msg: "密码或者账号错误" });
+  }
+  // 因为此时数据库中的password  是经过md5加密的  同一个字符串只能加密成一样的
+  // 所以对比数据加密后的一致性 就能实现登录
+  let md5password = md5(password);
+  Users.find({ usermail: usermail, password: md5password })
+    .then((data) => {
+      // 如果查到的数据长度大于0 那么说明该数据库中有数据
+      if (data.length > 0) {
+        res.send({ code: 2000, msg: "success" });
+      } else {
+        res.send({ code: 20001, msg: "你可能未注册,请前往注册" });
+      }
+    })
+    .catch((error) => {
+      res.send({ code: 20003, msg: "内部错误" + error });
+    });
+});
 module.exports = router;

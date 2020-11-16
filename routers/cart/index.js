@@ -39,16 +39,11 @@ router.post("/addtocart", async (req, res) => {
       { skuid: Number(skuid) },
       { $inc: { skunum: Number(skunum) } }
     );
-
-    // console.log(result);
-    /* .update(
-      { skuid: Number(skuid) },
-      { skunum: 1 }
-    ); */
     res.send({ code: 20000, data: result, msg: "success" });
   } catch (error) {
     console.log(error);
     res.send({ code: 20001, msg: error });
+    
   }
 
   /**@api {delete} /cart/deletecart 删除购物车

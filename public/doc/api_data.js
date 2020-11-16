@@ -1,5 +1,118 @@
 define({ "api": [
   {
+    "type": "delete",
+    "url": "/cart/checkcart",
+    "title": "切换商品的选中状态",
+    "group": "cart:购物车",
+    "name": "切换购物车商品的选中状态",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "skuid",
+            "description": "<p>商品id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "ischecked",
+            "description": "<p>选中状态 1代表选中 0代表不选</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:4000/cart/deletecart"
+      }
+    ],
+    "filename": "routers/cart/index.js",
+    "groupTitle": "cart:购物车"
+  },
+  {
+    "type": "delete",
+    "url": "/cart/deletecart",
+    "title": "删除购物车",
+    "group": "cart:购物车",
+    "name": "删除购物车",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "skuid",
+            "description": "<p>商品id</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:4000/cart/deletecart"
+      }
+    ],
+    "filename": "routers/cart/index.js",
+    "groupTitle": "cart:购物车"
+  },
+  {
+    "type": "get",
+    "url": "/cart/addtocart",
+    "title": "添加到购物车（对已有商品进行数量改动）",
+    "group": "cart:购物车",
+    "name": "添加到购物车",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "skuid",
+            "description": "<p>商品id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "skunum",
+            "description": "<p>商品数据</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:4000/cart/addtocart"
+      }
+    ],
+    "filename": "routers/cart/index.js",
+    "groupTitle": "cart:购物车"
+  },
+  {
+    "type": "get",
+    "url": "/cart/cartlist",
+    "title": "获取购物车列表",
+    "group": "cart:购物车",
+    "name": "获取购物车列表信息数据",
+    "version": "1.0.0",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:4000/cart/cartlist"
+      }
+    ],
+    "filename": "routers/cart/index.js",
+    "groupTitle": "cart:购物车"
+  },
+  {
     "type": "get",
     "url": "/detail/goodsdetail",
     "title": "获取商品详情",
@@ -232,7 +345,7 @@ define({ "api": [
     "groupTitle": "news:新闻"
   },
   {
-    "type": "get",
+    "type": "post",
     "url": "/register/mail",
     "title": "邮箱注册",
     "group": "register:注册",
@@ -250,7 +363,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "mail",
+            "field": "usermail",
             "description": "<p>邮箱</p>"
           },
           {
