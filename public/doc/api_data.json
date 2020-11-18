@@ -1,6 +1,21 @@
 [
   {
-    "type": "delete",
+    "type": "get",
+    "url": "/address/addressinfo",
+    "title": "地址",
+    "group": "cart:地址",
+    "name": "地址",
+    "version": "1.0.0",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:4000/address/addressinfo"
+      }
+    ],
+    "filename": "routers/Address/index.js",
+    "groupTitle": "cart:地址"
+  },
+  {
+    "type": "get",
     "url": "/cart/checkcart",
     "title": "切换商品的选中状态",
     "group": "cart:购物车",
@@ -63,7 +78,7 @@
     "groupTitle": "cart:购物车"
   },
   {
-    "type": "get",
+    "type": "post",
     "url": "/cart/addtocart",
     "title": "添加到购物车（对已有商品进行数量改动）",
     "group": "cart:购物车",
@@ -213,7 +228,7 @@
     "groupTitle": "home:首页数据"
   },
   {
-    "type": "get",
+    "type": "post",
     "url": "/login/getmail",
     "title": "获取邮件验证码",
     "group": "login:登录",
@@ -233,13 +248,6 @@
             "optional": false,
             "field": "usermail",
             "description": "<p>邮箱</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "code",
-            "description": "<p>邮箱验证码</p>"
           }
         ]
       }
@@ -257,7 +265,7 @@
     "groupTitle": "login:登录"
   },
   {
-    "type": "get",
+    "type": "post",
     "url": "/login/mail",
     "title": "邮件验证码登录",
     "group": "login:登录",
@@ -284,6 +292,50 @@
             "optional": false,
             "field": "code",
             "description": "<p>邮箱验证码</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response 200 Example",
+          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 20000,\n  \"data\": \"\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "routers/login.js",
+    "groupTitle": "login:登录"
+  },
+  {
+    "type": "post",
+    "url": "/login/account",
+    "title": "账户登录",
+    "group": "login:登录",
+    "name": "邮箱账户与密码登录",
+    "version": "1.0.0",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:4000/login/account"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": false,
+            "field": "usermail",
+            "description": "<p>邮箱</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "password",
+            "optional": false,
+            "field": "password",
+            "description": "<p>密码</p>"
           }
         ]
       }

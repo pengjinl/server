@@ -22,7 +22,7 @@ router.get("/cartlist", async (req, res) => {
   }
 });
 
-/**@api {get} /cart/addtocart 添加到购物车（对已有商品进行数量改动）
+/**@api {post} /cart/addtocart 添加到购物车（对已有商品进行数量改动）
  * @apiGroup cart:购物车
  * @apiName  添加到购物车
  * @description 添加到购物车
@@ -35,15 +35,18 @@ router.post("/addtocart", async (req, res) => {
   try {
     let { skuid, skunum } = req.body;
     console.log(skuid, skunum);
-    let result = await cartlistModel.update(
+    await cartlistModel.update(
       { skuid: Number(skuid) },
       { $inc: { skunum: Number(skunum) } }
+    );
+    let result = await cartlistModel.update(
+      { skuid: Number(skuid) },
+      { ischecked: Number(1) }
     );
     res.send({ code: 20000, data: result, msg: "success" });
   } catch (error) {
     console.log(error);
     res.send({ code: 20001, msg: error });
-    
   }
 
   /**@api {delete} /cart/deletecart 删除购物车
@@ -55,12 +58,13 @@ router.post("/addtocart", async (req, res) => {
    * @apiSampleRequest http://localhost:4000/cart/deletecart
    */
 });
-router.delete("/deletecart", async (req, res) => {
+router.delete("/deletecart/:skuid", async (req, res) => {
   try {
-    const { skuid } = req.body;
+    const { skuid } = req.params;
+    console.log(skuid);
     let result = await cartlistModel.update(
       { skuid: Number(skuid) },
-      { isdelete: Number(1) }
+      { isdelete: Number(1), skunum: Number(0) }
     );
     res.send({ code: 20000, msg: "success" });
   } catch (error) {
@@ -68,7 +72,7 @@ router.delete("/deletecart", async (req, res) => {
   }
 });
 
-/**@api {delete} /cart/checkcart 切换商品的选中状态
+/**@api {get} /cart/checkcart 切换商品的选中状态
  * @apiGroup cart:购物车
  * @apiName  切换购物车商品的选中状态
  * @description 切换购物车商品的选中状态（0代表未选中，1代表选中）
@@ -79,8 +83,9 @@ router.delete("/deletecart", async (req, res) => {
  */
 router.get("/checkcart", async (req, res) => {
   try {
-    console.log(req.query);
+    // console.log(req.query);
     const { skuid, ischecked } = req.query;
+    console.log(skuid, ischecked);
     await cartlistModel.update(
       { skuid: Number(skuid) },
       { ischecked: Number(ischecked) }

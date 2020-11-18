@@ -27,6 +27,7 @@ const moment = require("../utils/moment");
 router.post("/mail", async (req, res) => {
   try {
     const { usermail, password } = req.body;
+    console.log(usermail, password);
     // token
     const token = await sign({ usermail });
     // 将信息存入数据库中
