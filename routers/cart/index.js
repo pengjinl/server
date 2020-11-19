@@ -41,7 +41,7 @@ router.post("/addtocart", async (req, res) => {
     );
     let result = await cartlistModel.update(
       { skuid: Number(skuid) },
-      { ischecked: Number(1) }
+      { ischecked: Number(1), isdelete: Number(0) }
     );
     res.send({ code: 20000, data: result, msg: "success" });
   } catch (error) {
